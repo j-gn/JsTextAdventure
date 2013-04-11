@@ -1,0 +1,9 @@
+{
+    "scene_text" : "An old cemetery sits atop a dimly lit hill, surrounded by a high fence with a single majestic door, one might ask what they're trying to keep out, or for that matters, keep in...",
+    "look at" : {
+        "door" : "There's a keyslot here. "
+    },
+    "take" : {
+        "<insert item>" : ""
+    }
+}

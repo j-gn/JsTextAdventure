@@ -10,221 +10,51 @@
         <input id="input1" style="width:100%;" />
     </div>    
         <script type="text/javascript">
-            function Clear(){
-                $('#output').html(''); 
-            }
-            
-            //beware advanced javascript, console output logics
-            var out = (function(){
-                var obj = {};
-                var outputStream = ""; //private string
-                var elem = $('#output'); //fetch the html element by ID
-                function IsPrinting(){ //returns true as long as there is text to print
-                    return outputStream.length > 0; 
-                }
-                function Print(str){
-                    elem.html(elem.html() + str); //add the text
-                    var sHeight = elem[0].scrollHeight;
-                    var oHeight = elem.innerHeight();
-                    elem.scrollTop(sHeight - oHeight); //scroll to bottom
-                }
-                function PublishStream(){ //fuction that prints slowly by calling itself many times
-                    if(IsPrinting()){
-                         Print(outputStream[0]);
-                         outputStream = outputStream.substr(1);
-                         setTimeout(PublishStream, 40); //repeat this function untill the string is empty
+            var scene = {
+                scene_text : "In front of you there appears to be a bridge, but a charriot is blocking the path across.",
+                items : {
+                    wheel : {
+                        item_text : "It's round as fuck, oh, and also rubbery",
+                        scene_text : "In front of you there appears to be a bridge",
+                        items : {
+                            key : {
+                                item_text : "it's shiny",
+                                scene_text : "Somehow the whole bridge exploded, good job Einstein.",
+                                items : {
+                                    barrel : {
+                                        item_text: "has a hole in it, it seemsto be leaking some sort of powder.",
+                                        scene_text : "there is no barrell left"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                obj.Log = function(pValue){ //return a function
-                    if(outputStream.length === 0){
-                        outputStream += pValue + "\n";
-                        PublishStream(); //start the loop
-                    }else{
-                        outputStream += pValue + "\n";
-                    }
-                };
-
-                obj.Flush = function(){
-                    if(IsPrinting()){
-                        Print(outputStream);
-                        outputStream = "";
-                    }
-                };
-                return obj;
-            })();
-        
-            var username = "Mando";    
-            
-            var locations = [  //Y
-                [0,1,1,1,1,0], //0
-                [0,0,1,0,1,1], //1
-                [1,0,1,1,0,1], //2
-                [1,1,1,1,1,1], //3
-                [1,0,0,1,1,0]  //4
-            ];//X0 1 2 3 4 5
-
-            var playerPosition = {
-                x : 2,
-                y : 2
             };
             
-            function SetPosition(x,y){
+            scene = scene.items.wheel;
+            scene = scene.items.key;
+            scene = scene.items.barrel;
+            
+            function addTwo(param){
+                param = param + 2;
+                return param;
+            }
+            
+            function timesThree( parameter  ){
                 
-                playerPosition.x = x;
-                playerPosition.y = y;
-            }
-            
-            SetPosition(playerPosition.x,playerPosition.y); //refresh the player position
-            
-            function GetPosition(x,y){
-                if(y < 0 || y >= 6){ //before   if(y < 0 || y >= 5)
-                    return 0;
-                }
-                if(x < 0 || x >= 6){ //before    if(x < 0 || x >= 5)
-                    return 0;
-                }
-                return locations[y][x];
-            }
-            
-            function Walk(direction){
-                var newPosition = {
-                    x : playerPosition.x,
-                    y : playerPosition.y
-                };
-                var resultString;
-                switch(direction){
-                    case 'n':
-                    case 'no':
-                    case 'north':
-                    resultString = username + " Walked North.";
-                    newPosition.y--;
-                    break;
-                    case 's':
-                    case 'so':
-                    case 'south':
-                    resultString = username +  " Walked South.";
-                    newPosition.y++;
-                    break;
-                    case 'e':
-                    case 'ea':
-                    case 'east':
-                    resultString = username + " Walked East.";
-                    newPosition.x++;
-                    break; 
-                    case 'w':
-                    case 'we':
-                    case 'west':
-                    resultString = username +  " Walked West.";
-                    newPosition.x--;
-                    break;
-                }
-                var location = GetPosition(newPosition.x,newPosition.y);
-                if(location === 1){
-                    SetPosition(newPosition.x, newPosition.y);
-                }else{
-                    resultString = "You can't go there.";
-                }
-                out.Log(resultString);
-            }
-            
-            function GiveInput(pInput){
-                if(pInput.length === 0){
-                    out.Flush();    
-                    return; //if you haven't typed anything, exit function here
-                }else{
-                    out.Log(">" + pInput);              
-                    out.Flush(); //print everything at once
-                }
                 
-                var words = pInput.toLowerCase().split(" ");
-                switch(words[0]){ //first word
-                    case "head":
-                    case "roll":
-                    case "g":
-                    case "go":
-                    case "fly":
-                    case "run":
-                    case "walk":
-                        if(words.length >= 2){
-                            Walk(words[1]);    
-                            Look(); //always look after walk
-                        }else{
-                            out.Log(words[0] + " where?");
-                        }
-                        break;
-                    case "look":
-                        Look();
-                        break;
-                    case "clear":
-                        Clear();
-                        break;            
-                    case "help":
-                    case "commands":
-                        out.Log("These are your possible commands: look at, go, pickup, talk to, give, clear, help and credits.");
-                        break;
-                    case "credits":
-                        out.Log("This textadventure was brought to you by Substans & Cywbar.");
-                        break;
-                    case "take":
-                    case "pickup":
-                    case "grab":
-                        Take();
-                        break;
-                    default: 
-                        out.Log(pInput + " seems like a bad idea");
-                        break;
-                }
-            }
-            
-            function Take(){
-               //how is babby formed?
-            }
-            
-            function Look(){
-
-                var avalibleDirections = [];
-                if(GetPosition(playerPosition.x,playerPosition.y - 1 ) === 1){
-                    avalibleDirections.push("North");
-                }
-                if(GetPosition(playerPosition.x + 1,playerPosition.y) === 1){
-                    avalibleDirections.push("East");
-                }
-                if(GetPosition(playerPosition.x,playerPosition.y + 1) === 1){
-                    avalibleDirections.push("South");
-                }
-                if(GetPosition(playerPosition.x - 1,playerPosition.y) === 1){
-                    avalibleDirections.push("West");
-                }
+                return parameter * 3;    
                 
-                var avalibleDirectionsStr = "";
-                if(avalibleDirections.length === 0){
-                    avalibleDirectionsStr = "It's a dead end.";    //återvändsgränd
-                }else if(avalibleDirections.length === 1){
-                     avalibleDirectionsStr = "There's only one path, and it leads " + avalibleDirections[0]; //En möjlig väg  
-                }else if(avalibleDirections.length === 2){
-                   avalibleDirectionsStr = "There's two ways out, " +  avalibleDirections.join(" and ");    //Två möjliga vägar
-                }else{
-                    avalibleDirectionsStr = "You can go " + avalibleDirections.join(", ");    //Max antal
-                }
-                
-                //get the tile json file
-                $.getJSON('tiles/' + playerPosition.x + '_' + playerPosition.y + '.json', function(data) {
-                    //found a file
-                    out.Log(data.text + '\n' + avalibleDirectionsStr);
-                }).error(function(err){ 
-                    //no file present, (error)
-                    out.Log(avalibleDirectionsStr);
-                });
-            
             }
-
-            $("#input1").keyup(function (e) {
-                if (e.which === 13) { //13 är enter key
-                    GiveInput($('#input1').val());
-                    $('#input1').val('');
-                }
-            });
-            Look();
+            
+            var b = 20;
+            b = addTwo(timesThree(b));
+            $('#output').val(b);
+            
+            
+            
+            
         </script>
     </body>
 </html>

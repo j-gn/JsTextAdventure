@@ -1,0 +1,20 @@
+{
+    "scene_text" : "As you move about three crows sitting in a dead hollowed out tree silently follows your every move with a fierce, almost dead look in their eyes. ",
+    "items" : {
+        "wheel" : {
+            "item_text" : " It's round as fuck, oh, and also rubbery",
+            "scene_text" : "The crows didn't seem to mind your escapades, but decided to leave the tree without attacking you, who knows; maybe they are blind... ",
+            "items" : {
+                "key" : {
+                    "item_text" : "it's shiny",
+                    "scene_text" : "As you move about three crows sitting in a dead hollowed out tree silently follows your every move with a fierce, almost dead look in their eyes. "
+                }
+            }
+        }
+    },
+    "look" : {
+        "hole" : "There's something in there, looks like some sort of dagger!",
+        "dagger" : "Judging by the fact that this dagger is crafted from wood, my guess is that it's ceremonial. but it sure is the best dagger i've ever had!"
+    }
+    
+}                      

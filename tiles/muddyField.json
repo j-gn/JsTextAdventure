@@ -1,0 +1,14 @@
+{
+    "scene_text" : "You're in the middle of a field, chariot tracks leading east have settled deep within the mud that covers the entirety of this plane. ",
+    "look at" : {
+        "hole" : "There's something in there, looks like some sort of dagger!"
+    },
+    "take" : {
+        "dagger" : "Judging by the fact that this dagger is crafted from wood, my guess is that it's ceremonial. but it sure is the best dagger i've ever had!"
+    },
+    "directions" : {
+       "north" : "hollowTree",
+       "south" : "cemetery"
+    }
+    
+}                      

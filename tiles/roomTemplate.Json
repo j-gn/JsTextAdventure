@@ -1,0 +1,9 @@
+{
+    "scene_text" : "",
+    "look at" : {
+        "<insert lookable object>" : ""
+    },
+    "take" : {
+        "<insert item>" : ""
+    }
+}

@@ -1,3 +1,20 @@
 {
-    "text" : "In front of you there appears to be a bridge, but something is blocking the path across."
+    "scene_text" : "In front of you there appears to be a bridge, but something is blocking the path across. ",
+    "items" : {
+        "wheel" : {
+            "item_text" : " It's round as fuck, oh, and also rubbery",
+            "scene_text" : "As you move about three crows sitting in a dead hollowed out tree silently follows your every move with a fierce, almost dead look in their eyes. ",
+            "items" : {
+                "key" : {
+                    "item_text" : "it's shiny",
+                    "scene_text" : "As you move about three crows sitting in a dead hollowed out tree silently follows your every move with a fierce, almost dead look in their eyes. ",
+                }
+            }
+        }
+    },
+    "look" :{
+        "hole" : {
+            "look_text" : "There's something in there, looks like a dagger! "
+        }
+    }
 }
