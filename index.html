@@ -5,14 +5,16 @@
           <title>Mando the Dead</title>
     </head>
     <body>
-    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F87383493"></iframe>
-    
+    <!--
+    <iframe style="visibility:hidden" width="0px" height="0px" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F87383493&auto_play=true"></iframe>
+    -->
     <div style="max-width:680px; margin: 0 auto;">
         <textarea disabled id="output" style="width:100%; min-height:100px; background-color:#ffffff; color:#000000; border:1px dotted gray;"></textarea>
         <input id="input1" style="width:100%;" />
     </div>    
         <script type="text/javascript">
-            
+        (function(){
+
             function GetRandomInt (min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
@@ -142,13 +144,18 @@
                 }
             }
             
-            function LookAt( pLookTarget ){ 
+            function LookAt( pLookTarget ){
                 GetPosition(position, function(pRoom){
-                    var description = pRoom.look[pLookTarget];
-                    if(description === undefined){
-                        out.Log( pLookTarget + " looks just fine!");
+                    if(pRoom.look !== undefined && pRoom.hasOwnProperty(pLookTarget)){
+                        out.Log(pRoom.look[pLookTarget]);
                     }else{
-                        out.Log(description);
+                        if (inventory.hasOwnProperty(pLookTarget)) {
+                            //look inside inventory
+                            out.Log(username + "opens up his bag and looks at the " + pLookTarget);
+                            out.Log( inventory[pLookTarget]);
+                        }else{
+                            out.Log( username + " can't see a " + pLookTarget );
+                        }
                     }
                 });
             }
@@ -168,15 +175,15 @@
                     }else if(avalibleDirections.length === 1){
                          avalibleDirectionsStr = "There's only one path, and it leads " + avalibleDirections[0]; //En möjlig väg  
                     }else if(avalibleDirections.length === 2){
-                       avalibleDirectionsStr = "There's two ways out, " +  avalibleDirections.join(" and ");    //Två möjliga vägar
+                       avalibleDirectionsStr = "There are two routes one leading " +  avalibleDirections.join(", and one leading ")  + ".";    //Två möjliga vägar
                     }else{
                         avalibleDirectionsStr = "You can go " + avalibleDirections.join(", ");    //Max antal
                     }
                     out.Log(pRoom.scene_text);
                     out.Log(avalibleDirectionsStr);
                 });
-               
             }
+            
             
 
             function GiveInput(pInput){
@@ -253,6 +260,7 @@
                 }
             });
             Look();
+        })();
         </script>
     </body>
 </html>

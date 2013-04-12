@@ -15,6 +15,9 @@
     "look" : {
         "hole" : "There's something in there, looks like some sort of dagger!",
         "dagger" : "Judging by the fact that this dagger is crafted from wood, my guess is that it's ceremonial. but it sure is the best dagger i've ever had!"
+    },
+    "directions" : {
+        "south" : "muddyField"
     }
     
 }                      

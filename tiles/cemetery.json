@@ -3,6 +3,9 @@
     "look at" : {
         "door" : "There's a keyslot here. "
     },
+    "directions" : {
+       "north" : "muddyField"
+    },
     "take" : {
         "<insert item>" : ""
     }
